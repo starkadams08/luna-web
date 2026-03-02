@@ -93,7 +93,7 @@ def login():
             login_user(User(user[0], user[1]))
             return redirect(url_for("home"))
 
-        #return "Invalid credentials"
+        return "Invalid credentials"
 
     return render_template("login.html")
 
@@ -111,5 +111,6 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
 
    
+
 
 
