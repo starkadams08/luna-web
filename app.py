@@ -89,6 +89,14 @@ def login():
         user = c.fetchone()
         conn.close()
 
+        print("USERNAME ENTERED:", username)
+        print("USER FROM DB:", user)
+
+        if user:
+            print("HASH IN DB:", user[2])
+            print("PASSWORD ENTERED:", password)
+            print("CHECK RESULT:", check_password_hash(user[2], password))
+
         if user and check_password_hash(user[2], password):
             login_user(User(user[0], user[1]))
             return redirect(url_for("home"))
@@ -111,6 +119,7 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
 
    
+
 
 
 
