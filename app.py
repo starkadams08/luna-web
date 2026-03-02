@@ -95,7 +95,7 @@ def login():
 
         #return "Invalid credentials"
 
-    return render_template("login.html")
+    return render_template("login.html" error="Invalid credentials")
 
 # ---------------- LOGOUT ---------------- #
 
@@ -111,3 +111,4 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
 
    
+
