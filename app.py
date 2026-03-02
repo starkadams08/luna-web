@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
-import sqlite3
+from database import get_connection
 
 from assistant import get_reply as luna_response
 from database import init_db
@@ -25,7 +25,7 @@ class User(UserMixin):
 
 @login_manager.user_loader
 def load_user(user_id):
-    conn = sqlite3.connect("luna.db")
+    conn = get_connection()
     c = conn.cursor()
     c.execute("SELECT id, username FROM users WHERE id = ?", (user_id,))
     user = c.fetchone()
@@ -60,7 +60,7 @@ def register():
         username = request.form["username"]
         password = generate_password_hash(request.form["password"])
 
-        conn = sqlite3.connect("luna.db")
+        conn = get_connection()
         c = conn.cursor()
 
         try:
@@ -83,7 +83,7 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
 
-        conn = sqlite3.connect("luna.db")
+        conn = get_connection()
         c = conn.cursor()
         c.execute("SELECT id, username, password FROM users WHERE username = ?", (username,))
         user = c.fetchone()
@@ -119,6 +119,7 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
 
    
+
 
 
 
