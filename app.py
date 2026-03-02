@@ -27,7 +27,7 @@ class User(UserMixin):
 def load_user(user_id):
     conn = get_connection()
     c = conn.cursor()
-    c.execute("SELECT id, username FROM users WHERE id = ?", (user_id,))
+    c.execute("SELECT id, username FROM users WHERE id = %s", (user_id,))
     user = c.fetchone()
     conn.close()
 
@@ -64,7 +64,7 @@ def register():
         c = conn.cursor()
 
         try:
-            c.execute("INSERT INTO users (username, password) VALUES (?, ?)", (username, password))
+            c.execute("INSERT INTO users (username, password) VALUES (%s, %s)", (username, password))
             conn.commit()
         except:
             conn.close()
@@ -85,7 +85,7 @@ def login():
 
         conn = get_connection()
         c = conn.cursor()
-        c.execute("SELECT id, username, password FROM users WHERE username = ?", (username,))
+        c.execute("SELECT id, username, password FROM users WHERE username = %s", (username,))
         user = c.fetchone()
         conn.close()
 
@@ -119,6 +119,7 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
 
    
+
 
 
 
