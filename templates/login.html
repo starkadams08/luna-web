@@ -5,3 +5,6 @@
     <button type="submit">Register</button>
     <a href="/login">Login</a>
 </form>
+{% if error %}
+<p style="color:red;">{{ error }}</p>
+{% endif %}
