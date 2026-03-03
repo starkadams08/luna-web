@@ -64,8 +64,12 @@ def register():
         c = conn.cursor()
 
         try:
-            c.execute("INSERT INTO users (username, password) VALUES (%s, %s)", (username, password))
-            conn.commit()
+            c.execute(
+                "INSERT INTO users (username, password) VALUES (%s, %s)",
+                (username, password)
+            )
+            print("User inserted:", username)
+            #conn.commit()
         except:
             conn.close()
             return "Username already exists"
@@ -119,6 +123,7 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
 
    
+
 
 
 
